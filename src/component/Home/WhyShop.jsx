@@ -1,5 +1,7 @@
 import React from "react";
 import { FaShippingFast, FaUndoAlt, FaLock, FaStar } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { fadeLeft, fadeUp } from "../../utils/animation";
 
 const features = [
   {
@@ -32,14 +34,22 @@ const WhyShop = () => {
   return (
     <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-10">
+        <motion.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl md:text-4xl font-bold mb-10"
+        >
           Why Shop With IBX?
-        </h2>
+        </motion.h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {features.map((item) => (
-            <div
+            <motion.div
+              variants={fadeUp(0.1)}
+              initial="hidden"
+              whileInView="visible"
               key={item.id}
-              className="bg-white p-6 rounded-lg shadow hover:shadow-md transition"
+              className="bg-white p-6 rounded-lg shadow hover:shadow-md "
             >
               <div className="text-orange-500 mb-3 flex  justify-center">
                 {item.icon}
@@ -47,7 +57,7 @@ const WhyShop = () => {
 
               <h3 className="font-semibold text-lg">{item.title}</h3>
               <p className="text-sm text-gray-500 mt-2">{item.desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
