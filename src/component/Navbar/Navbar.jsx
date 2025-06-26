@@ -5,10 +5,12 @@ import { HiMenu, HiX } from "react-icons/hi";
 
 import { navData } from "../../data/Navbar";
 import ResponsiveMenu from "./ResponsiveMenu";
-
+import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { fadeDown } from "../../utils/animation";
 function Navbar() {
   const [open, setOpen] = useState(false);
-
+  const location = useLocation().pathname;
   return (
     <nav>
       {/* Fixed Navbar Container */}
@@ -23,12 +25,19 @@ function Navbar() {
           <div className="hidden md:block">
             <ul className="flex gap-6">
               {navData.map((e) => (
-                <li
+                <motion.li
+                  variants={fadeDown(0.3)}
+                  initial="hidden"
+                  animate="visible"
                   key={e.id}
-                  className="inline-block font-semibold hover:text-orange-500 hover:border-b hover:border-orange-500 duration-300"
+                  className={`inline-block font-semibold ${
+                    location == e.link
+                      ? `underline underline-offset-4 text-orange-500`
+                      : ``
+                  }`}
                 >
                   <a href={e.link}>{e.title}</a>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
